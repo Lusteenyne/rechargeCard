@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/bootstrap-5.3.3-dist/js/bootstrap.bundle.js">
+    <title>Document</title>
+    <style>
+        table,
+        tbody,
+        thead,
+        th,
+        td,tr {
+            margin-top: 20px;
+            border-collapse: collapse;
+            border: 2px solid white;
+            padding: 10px;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body-con m-auto bg-success w-50 rounded shadown p-3 align-items-center">
+        <select class="select-one mt-4 mb-5 rounded fw-semibold " name="" id="Provider">
+            <option value="">Choose Provider</option>
+            <option class="bg-warning" value="MTN">MTN</option>
+            <option class="bg-success" value="GLO">GLO</option>
+            <option class="bg-danger" value="AIRTEL">AIRTEL</option>
+            <option class="bg-success" value="9MOBILE">9MOBILE</option>
+        </select>
+        <select class="select-two mt-4 rounded fw-semibold " name="" id="Amount">
+            <option value="">Choose Amount</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+        </select>
+        <p class="cardpin w-25  rounded fw-bold bg-white text-center " id="pin">Pin</p>
+        <button class="gene fw-semibold rounded " onclick="generate()">Generate Pin</button>
+    
+        <table>
+            <thead>
+                <th>
+                    S/N
+                </th>
+                <th>
+                    Provider
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Used
+                </th>
+                <th>
+                    Pin
+                </th>
+            </thead>
+            <tbody id="tbody">
+    
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+
+</html>
+
+<script>
+    let cardDatabase = []
+    let serialNum = 1
+    let output = document.getElementById("tbody")
+    function generate() {
+        if (!Provider.value || !Amount.value) {
+            alert(`all fields are mandatory`)
+        } else {
+
+
+            let myPin = ''
+            for (let index = 0; index < 12; index++) {
+                let randomNum = Math.floor(Math.random() * 10)
+                myPin = myPin + randomNum
+
+            }
+            pin.innerHTML = ` ${myPin}, ${myPin.length}`
+
+            let pinObj = {
+
+                provider: Provider.value,
+                amount: Amount.value,
+                used: false,
+                pin: myPin
+
+            }
+            cardDatabase.push(pinObj)
+            console.log(cardDatabase);
+
+
+            let cardObj = Object.keys(cardDatabase[0])
+            console.log(cardObj);
+
+            let cardVal = Object.values(cardDatabase[0])
+            console.log(cardVal);
+
+            for (let index = 0; index < cardDatabase.length; index++) {
+                cardDatabase = []
+
+                output.innerHTML += `
+                <tr>
+            <td> ${serialNum++} </td>
+            <td>${cardVal[0]} </td>
+            <td> ${cardVal[1]} </td>
+            <td> ${cardVal[2]} </td>
+            <td> ${cardVal[3]} </td>
+        </tr>
+               `
+                console.log(serialNum);
+
+            }
+        }
+    }
+</script>
